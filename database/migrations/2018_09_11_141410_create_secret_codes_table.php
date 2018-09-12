@@ -16,7 +16,7 @@ class CreateSecretCodesTable extends Migration
         Schema::create('secret_codes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code_name',50);
-            $table->string('secret_code');
+            $table->text('secret_code');
             $table->timestamps();
         });
     }

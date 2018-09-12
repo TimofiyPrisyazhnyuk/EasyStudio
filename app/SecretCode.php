@@ -16,10 +16,10 @@ class SecretCode extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function decode()
     {
-        return $this->hasOne(Decode::class, 'secret_code_id');
+        return $this->hasMany(Decode::class, 'secret_code_id');
     }
 }

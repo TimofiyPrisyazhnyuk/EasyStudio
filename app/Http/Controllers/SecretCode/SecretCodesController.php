@@ -19,7 +19,9 @@ class SecretCodesController extends Controller
      */
     public function index()
     {
-        return view('index');
+        return view('index',[
+            'codes' => SecretCode::with('decode')->get()
+        ]);
     }
 
     /**
@@ -50,7 +52,9 @@ class SecretCodesController extends Controller
                     mb_strimwidth($item, 1, strlen($item)) : $item,
             ]);
         };
-        return redirect()->back()->with('success','You search');
+
+        return redirect()->back()
+            ->with('success', 'Your secret code saved!');
     }
 
     /**

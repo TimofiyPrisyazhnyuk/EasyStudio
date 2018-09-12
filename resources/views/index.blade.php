@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="{{ asset('css/grayscale.min.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"/>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 </head>
@@ -81,16 +81,23 @@
                 <h2 class="text-white">ALL CODES</h2>
                 <div class="card app-card py-4">
                     <div class="card-body text-center">
-
-
-                        <hr class="my-4">
+                        <div>
+                            @foreach($codes as $code)
+                                <div class="badge-info">{{ $code->code_name }}</div>
+                                <div class="badge-danger">{{ $code->secret_code }}</div>
+                                <div>
+                                    @foreach($code->decode as $decode )
+                                        {{ $decode->decode_code . ' '}}
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 
 <!-- Signup Section -->
 <section id="signup" class="signup-section">
@@ -150,7 +157,8 @@
 {{-- Scripts --}}
 <script src="{{ asset('js/app.js') }}"></script>
 
-@if($errors->has('code_name') || $errors->has('secret_code'))
+@if($errors->has('code_name') || $errors->has('secret_code')
+ || session()->has('success') || session()->has('warning'))
     <script defer>
         $('body,html').animate({
             scrollTop: $('#secret_code').offset().top
@@ -158,5 +166,50 @@
     </script>
 @endif
 
+{{-- Message Success and warning --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    @if(session()->has('success'))
+    toastr.success('{{ session()->get('success') }}', 'Success', {
+        timeOut: 2000,
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "3000",
+        "hideDuration": "3000",
+        "extendedTimeOut": "3000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    });
+    @endif
+
+    @if(session()->has('warning'))
+    toastr.warning('{{ session()->get('warning') }}', 'Warning', {
+        timeOut: 2000,
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "3000",
+        "hideDuration": "3000",
+        "extendedTimeOut": "3000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": false
+    });
+    @endif
+</script>
 </body>
 </html>
