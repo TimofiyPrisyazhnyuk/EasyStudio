@@ -1,0 +1,21 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+#about {
+  min-height: 800px;
+  overflow: auto;
+}
+.app-card {
+  height: 540px;
+  overflow: auto;
+}
+.app-textarea {
+  width: 100%;
+}
