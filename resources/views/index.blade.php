@@ -81,14 +81,18 @@
                 <h2 class="text-white">ALL CODES</h2>
                 <div class="card app-card py-4">
                     <div class="card-body text-center">
-                        <div>
+                        <div class="app-card">
                             @foreach($codes as $code)
-                                <div class="badge-info">{{ $code->code_name }}</div>
+                                <div class="badge-info"><b>{{ $code->code_name }}</b></div>
                                 <div class="badge-danger">{{ $code->secret_code }}</div>
-                                <div>
-                                    @foreach($code->decode as $decode )
-                                        {{ $decode->decode_code . ' '}}
-                                    @endforeach
+                                <div >
+                                    @if($code->decode)
+                                        <input id="password-field" type="password" class="form-control" name="password"
+                                               value="@foreach($code->decode as $decode ){{ $decode->decode_code . ' '}}@endforeach"
+                                               disabled="">
+                                        <span toggle="#password-field"
+                                              class="fa fa-fw fa-eye fa-2x field-icon toggle-password"></span>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
@@ -210,6 +214,16 @@
         "tapToDismiss": false
     });
     @endif
+
+    $(".toggle-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        let input = $($(this).attr("toggle"));
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>
 </body>
 </html>
