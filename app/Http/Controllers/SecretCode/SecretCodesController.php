@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 class SecretCodesController extends Controller
 {
 
-
     /**
      * Display a listing of the resource.
      *
@@ -24,20 +23,11 @@ class SecretCodesController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param SecretCodeRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(SecretCodeRequest $request)
@@ -58,6 +48,7 @@ class SecretCodesController extends Controller
     }
 
     /**
+     * String decode and save to db
      *
      * @param $newCode
      * @return array
@@ -68,11 +59,10 @@ class SecretCodesController extends Controller
         $decodeCodeArray = [];
 
         for ($i = 0; $i < strlen($startString); $i++) {
-            $sql = strpos($startString, '{');
-            $result = mb_strimwidth($startString, $sql, strlen($startString));
-            $trim = substr($result, 1, 1);
+            $result = mb_strimwidth($startString, strpos($startString, '{'), strlen($startString));
+            $cutString = substr($result, 1, 1);
 
-            if ((int)$trim || $trim == "-" || $trim == "+") {
+            if ((int)$cutString || $cutString == "-" || $cutString == "+") {
                 $findClose = strpos($result, '}');
                 $pushItem = trim(substr($result, 1, $findClose - 1));
                 if (is_numeric($pushItem) && !strpos($pushItem, '.')) {
@@ -81,27 +71,17 @@ class SecretCodesController extends Controller
                 $startString = mb_strimwidth($result, $findClose, strlen($startString));
             } else {
                 $findOpen = strpos(substr($result, 1, strlen($result)), '{');
-                $result = mb_strimwidth($result, $findOpen, strlen($startString));
-                $startString = $result;
+                $startString = mb_strimwidth($result, $findOpen, strlen($startString));
             }
         }
 
         return $decodeCodeArray;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Request $request
-     * @param  int $id
-     * @return void
-     */
-    public function show(Request $request, $id)
-    {
-//        return response()->json(['hi', 'man']);
-    }
 
     /**
+     * Sort codes -  return json
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -120,38 +100,4 @@ class SecretCodesController extends Controller
         return response()->json($codes);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

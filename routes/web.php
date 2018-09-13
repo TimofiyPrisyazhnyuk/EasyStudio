@@ -14,5 +14,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::resource('/','SecretCode\SecretCodesController');
-Route::post('/sort','SecretCode\SecretCodesController@sortCodes');
+Route::resource('/', 'SecretCode\SecretCodesController')
+    ->only(['index', 'store']);
+Route::post('/sort', 'SecretCode\SecretCodesController@sortCodes');
