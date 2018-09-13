@@ -23,7 +23,6 @@ class SecretCodesController extends Controller
         ]);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -77,7 +76,6 @@ class SecretCodesController extends Controller
 
         return $decodeCodeArray;
     }
-
 
     /**
      * Sort codes -  return json
