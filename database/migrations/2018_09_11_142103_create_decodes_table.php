@@ -16,7 +16,7 @@ class CreateDecodesTable extends Migration
         Schema::create('decodes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('secret_code_id');
-            $table->string('decode_code',255);
+            $table->integer('decode_code');
             $table->timestamps();
         });
     }

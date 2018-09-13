@@ -19,7 +19,7 @@ class SecretCodesController extends Controller
      */
     public function index()
     {
-        return view('index',[
+        return view('index', [
             'codes' => SecretCode::with('decode')->get()
         ]);
     }
@@ -48,7 +48,7 @@ class SecretCodesController extends Controller
         foreach ($decodeCode as $item) {
             Decode::create([
                 'secret_code_id' => $newCode->id,
-                'decode_code' => (strpos($item, '+') === 0) ?
+                'decode_code' => (int)(strpos($item, '+') === 0) ?
                     mb_strimwidth($item, 1, strlen($item)) : $item,
             ]);
         };
@@ -92,13 +92,34 @@ class SecretCodesController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+//        return response()->json(['hi', 'man']);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sortCodes(Request $request)
+    {
+        if ($request->input('operator') == 'search') {
+            $codes = Decode::where('decode_code', 'LIKE', "%" . $request->input('value') . "%")
+                ->with('secretCode.decode')->get()->keyBy('secret_code_id');
+        } elseif ($request->input('operator') == 'all') {
+            $codes = Decode::with('secretCode.decode')->get()->keyBy('secret_code_id');
+        } else {
+            $codes = Decode::where('decode_code', $request->input('operator'), (int)$request->input('value'))
+                ->with('secretCode.decode')->get()->keyBy('secret_code_id');
+        }
+
+        return response()->json($codes);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

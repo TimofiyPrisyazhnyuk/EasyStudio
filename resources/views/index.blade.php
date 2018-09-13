@@ -80,22 +80,57 @@
                 <i class="text-white fas fa-eye fa-2x"></i>
                 <h2 class="text-white">ALL CODES</h2>
                 <div class="card app-card py-4">
-                    <div class="card-body text-center">
-                        <div class="app-card">
+                    <div class="card-body text-center" id="app-card-body">
+
+
+                        <div class="form-row py-2 app-fixed">
+                            <div class="col-md-6 pull-left">
+                                <select name="sort" id="app-sort">
+                                    <option value="" disabled="" selected="">SELECT CODES BY :</option>
+                                    <option value="all" title="all">show all</option>
+                                    <option value="2000" title=">">> 100</option>
+                                    <option value="2000" title=">">> 1000</option>
+                                    <option value="2000" title=">">> 2000</option>
+                                    <option value="2000" title=">">> 5000</option>
+                                    <option value="5000" title="<">< 100</option>
+                                    <option value="5000" title="<">< 1000</option>
+                                    <option value="5000" title="<">< 2000</option>
+                                    <option value="5000" title="<">< 5000</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 pull-right">
+                                <div class="app-search">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                                           aria-label="Search" value="" title="search" id="js-search">
+                                    <button id="js-search-click"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        @if($codes->isEmpty())
+                            <div class="app-append-block">
+                                <p>Not have saved secret codes.</p>
+                            </div>
+                            @else
+
+                        <div class="app-append-block">
                             @foreach($codes as $code)
-                                <div class="badge-info"><b>{{ $code->code_name }}</b></div>
-                                <div class="badge-danger">{{ $code->secret_code }}</div>
-                                <div >
-                                    @if($code->decode)
-                                        <input id="password-field" type="password" class="form-control" name="password"
-                                               value="@foreach($code->decode as $decode ){{ $decode->decode_code . ' '}}@endforeach"
-                                               disabled="">
-                                        <span toggle="#password-field"
-                                              class="fa fa-fw fa-eye fa-2x field-icon toggle-password"></span>
-                                    @endif
+                                <div class="mb-3 app-code-block">
+                                    <div class="badge-info"><b>{{ $code->code_name }}</b></div>
+                                    <div class="badge-danger">{{ $code->secret_code }}</div>
+                                    <div>
+                                        @if($code->decode)
+                                            <input id="{{ $code->id }}" type="password" class="form-control"
+                                                   value="@foreach($code->decode as $decode ){{ $decode->decode_code . ' '}}@endforeach"
+                                                   name="password" disabled="">
+                                            <span toggle="#{{ $code->id }}"
+                                                  class="fa fa-fw fa-eye fa-2x field-icon toggle-password"></span>
+                                        @endif
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
+                            @endif
+
                     </div>
                 </div>
             </div>
@@ -170,6 +205,10 @@
     </script>
 @endif
 
+
+{{-- Sort Search --}}
+<script src="{{ asset('js/sortSearch.js') }}"></script>
+
 {{-- Message Success and warning --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script>
@@ -214,16 +253,6 @@
         "tapToDismiss": false
     });
     @endif
-
-    $(".toggle-password").click(function () {
-        $(this).toggleClass("fa-eye fa-eye-slash");
-        let input = $($(this).attr("toggle"));
-        if (input.attr("type") === "password") {
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-        }
-    });
 </script>
 </body>
 </html>

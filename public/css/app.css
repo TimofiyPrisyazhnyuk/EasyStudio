@@ -10479,6 +10479,7 @@ a.text-dark:focus {
 .app-card {
   height: 540px;
   overflow: auto;
+  padding-top: 0 !important;
 }
 
 .app-textarea {
@@ -10490,6 +10491,43 @@ a.text-dark:focus {
   right: 1%;
   margin-top: -32px;
   position: relative;
-  z-index: 2;
+}
+
+.app-search {
+  width: 100%;
+  position: relative;
+}
+
+.app-search input {
+  width: 80%;
+  position: relative;
+  float: left;
+  margin-right: 0 !important;
+}
+
+.app-search button {
+  width: 20%;
+  cursor: pointer;
+  padding: 6px 0 6px 0;
+  position: relative;
+  background: #a79960;
+  float: left;
+}
+
+#app-sort {
+  height: 100%;
+}
+
+#app-card-body {
+  padding-top: 0;
+}
+
+.app-fixed {
+  position: -webkit-sticky;
+  /* Safari */
+  position: sticky;
+  background: white;
+  z-index: 3;
+  top: 0;
 }
 
