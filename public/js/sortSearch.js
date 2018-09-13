@@ -89,16 +89,17 @@ $(document).on('click', '.toggle-password', function () {
 
 var sortCode = $('#app-sort');
 var appendBox = $('.app-append-block');
-
+var searchField = $('#js-search');
 /** * onChange query to db  ajax ( sort ) */
 sortCode.on('change', function () {
   getSecretCodes($(this).find('option:selected').attr('title'), $(this).val());
+  searchField.val('');
 });
 
 /** * onChange query to db  ajax (search) */
 $('#js-search-click').on('click', function () {
-  var searchField = $('#js-search');
   getSecretCodes(searchField.attr('title'), searchField.val());
+  $('select option:eq(0)').prop("selected", "selected");
 });
 
 /** * Search and sort codes ajax * * @type {*|jQuery|HTMLElement} */
@@ -118,15 +119,15 @@ function getSecretCodes(operator, value) {
     },
     success: function success(data) {
       appendBox.find('.app-code-block').remove();
-      appendBox.find('.app-append-block').remove();
       appendCodes(data);
     }
   });
 }
 
 function appendCodes(data) {
+
   if (!isEmpty(data)) {
-    appendBox.append('<div class="app-append-block">' + '<p>Not have saved secret codes.</p>' + '</div>');
+    appendBox.append('<div class="app-code-block">' + '<p>Not have saved secret codes.</p>' + '</div>');
   } else {
     for (var code in data) {
       appendBox.append('<div class="mb-3 app-code-block">' + '<div class="badge-info"><b>' + data[code].secret_code.code_name + '</b></div>' + '<div class="badge-danger">' + data[code].secret_code.secret_code + '</div>' + '<div>' + '<input id="' + data[code].id + '" type="password" class="form-control" name="password" value="' + returnValue(data[code].secret_code.decode) + '" disabled="">' + '<span toggle="#' + data[code].id + '" class="fa fa-fw fa-eye fa-2x field-icon toggle-password"></span>' + '</div>' + '</div>');

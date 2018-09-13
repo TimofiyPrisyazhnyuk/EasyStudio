@@ -84,7 +84,7 @@
                         <div class="form-row py-2 app-fixed">
                             <div class="col-md-6 pull-left">
                                 <select name="sort" id="app-sort">
-                                    <option value="" disabled="" selected="">SELECT CODES BY :</option>
+                                    <option value="" id="js-disabled" disabled="" selected="">SELECT CODES BY :</option>
                                     <option value="all" title="all">show all</option>
                                     <option value="2000" title=">">> 100</option>
                                     <option value="2000" title=">">> 1000</option>
@@ -105,12 +105,10 @@
                                 </div>
                             </div>
                         </div>
-                        @if($codes->isEmpty())
-                            <div class="app-append-block">
-                                <p>Not have saved secret codes.</p>
-                            </div>
-                        @else
-                            <div class="app-append-block">
+                        <div class="app-append-block">
+                            @if($codes->isEmpty())
+                                <p class="app-code-block">Not have saved secret codes.</p>
+                            @else
                                 @foreach($codes as $code)
                                     <div class="mb-3 app-code-block">
                                         <div class="badge-info"><b>{{ $code->code_name }}</b></div>
@@ -126,8 +124,8 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
-                        @endif
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
