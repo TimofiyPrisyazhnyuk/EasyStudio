@@ -46,6 +46,10 @@
   position: relative;
   background: #a79960;
   float: left;
+  transition: 0.3s ease-in;
+}
+.app-search button:hover {
+  background: #6a613d;
 }
 
 #app-sort {

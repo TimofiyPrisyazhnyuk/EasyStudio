@@ -81,8 +81,6 @@
                 <h2 class="text-white">ALL CODES</h2>
                 <div class="card app-card py-4">
                     <div class="card-body text-center" id="app-card-body">
-
-
                         <div class="form-row py-2 app-fixed">
                             <div class="col-md-6 pull-left">
                                 <select name="sort" id="app-sort">
@@ -102,7 +100,8 @@
                                 <div class="app-search">
                                     <input class="form-control mr-sm-2" type="search" placeholder="Search"
                                            aria-label="Search" value="" title="search" id="js-search">
-                                    <button id="js-search-click"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    <button id="js-search-click"><i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -110,27 +109,25 @@
                             <div class="app-append-block">
                                 <p>Not have saved secret codes.</p>
                             </div>
-                            @else
-
-                        <div class="app-append-block">
-                            @foreach($codes as $code)
-                                <div class="mb-3 app-code-block">
-                                    <div class="badge-info"><b>{{ $code->code_name }}</b></div>
-                                    <div class="badge-danger">{{ $code->secret_code }}</div>
-                                    <div>
-                                        @if($code->decode)
-                                            <input id="{{ $code->id }}" type="password" class="form-control"
-                                                   value="@foreach($code->decode as $decode ){{ $decode->decode_code . ' '}}@endforeach"
-                                                   name="password" disabled="">
-                                            <span toggle="#{{ $code->id }}"
-                                                  class="fa fa-fw fa-eye fa-2x field-icon toggle-password"></span>
-                                        @endif
+                        @else
+                            <div class="app-append-block">
+                                @foreach($codes as $code)
+                                    <div class="mb-3 app-code-block">
+                                        <div class="badge-info"><b>{{ $code->code_name }}</b></div>
+                                        <div class="badge-danger">{{ $code->secret_code }}</div>
+                                        <div>
+                                            @if($code->decode)
+                                                <input id="{{ $code->id }}" type="password" class="form-control"
+                                                       value="@foreach($code->decode as $decode ){{ $decode->decode_code . ' '}}@endforeach"
+                                                       name="password" disabled="">
+                                                <span toggle="#{{ $code->id }}"
+                                                      class="fa fa-fw fa-eye fa-2x field-icon toggle-password"></span>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
-                            @endif
-
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -151,10 +148,10 @@
             <div class="col-md-4 mb-3 mb-md-0">
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
-                        <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Address</h4>
+                        <i class="fab fa-skype fa-2x text-primary mb-2"></i>
+                        <h4 class="text-uppercase m-0">Skype</h4>
                         <hr class="my-4">
-                        <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                        <div class="small text-black-50">Timofiy Prisyazhnyuk</div>
                     </div>
                 </div>
             </div>
@@ -162,11 +159,11 @@
             <div class="col-md-4 mb-3 mb-md-0">
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
-                        <i class="fas fa-envelope text-primary mb-2"></i>
+                        <i class="fas fa-envelope fa-2x text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">Email</h4>
                         <hr class="my-4">
                         <div class="small text-black-50">
-                            <a href="#">hello@yourdomain.com</a>
+                            <a href="https://mail.google.com/mail/u/0/#inbox">timofiyprisyazhnyuk@gmail.com</a>
                         </div>
                     </div>
                 </div>
@@ -175,10 +172,10 @@
             <div class="col-md-4 mb-3 mb-md-0">
                 <div class="card py-4 h-100">
                     <div class="card-body text-center">
-                        <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                        <i class="fas fa-mobile-alt fa-2x text-primary mb-2"></i>
                         <h4 class="text-uppercase m-0">Phone</h4>
                         <hr class="my-4">
-                        <div class="small text-black-50">+1 (555) 902-8832</div>
+                        <div class="small text-black-50">+38 (068) 892-9272</div>
                     </div>
                 </div>
             </div>
